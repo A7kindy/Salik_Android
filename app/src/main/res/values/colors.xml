@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="mainColor">#2DBEDD</color>
+    <color name="separatorColor">#e5eef2</color>
+    <color name="separatorLineColor1">#434647</color>
+    <color name="separatorLineColor2">#868c8e</color>
+    <color name="colorTabIndicator">#00FF00</color>
+
+
+
+</resources>
