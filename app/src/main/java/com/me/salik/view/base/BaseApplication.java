@@ -3,7 +3,6 @@ package com.me.salik.view.base;
 import android.annotation.TargetApi;
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
@@ -12,13 +11,13 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.me.salik.AppPreference;
 import com.me.salik.common.Common;
-import com.me.salik.preference.AppPreference;
 
 /**
- * Created by MAC on 6/13/16.
+ * Created by MAC on 6/30/16.
  */
-public class BaseApplication extends Application {
+public class BaseApplication extends Application{
 
     public AppPreference preference;
     public BaseApplication(){
@@ -66,6 +65,5 @@ public class BaseApplication extends Application {
         }
         return false;
     }
-
 
 }

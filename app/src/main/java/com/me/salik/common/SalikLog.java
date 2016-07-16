@@ -3,7 +3,7 @@ package com.me.salik.common;
 import android.util.Log;
 
 /**
- * Created by MAC on 6/13/16.
+ * Created by MAC on 6/30/16.
  */
 public class SalikLog {
     private static boolean Debug = true;
@@ -18,5 +18,4 @@ public class SalikLog {
             Log.e(Common.TAG, msg);
         }
     }
-
 }

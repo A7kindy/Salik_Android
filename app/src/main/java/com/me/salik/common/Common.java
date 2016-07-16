@@ -1,21 +1,9 @@
 package com.me.salik.common;
 
 /**
- * Created by MAC on 6/13/16.
+ * Created by MAC on 6/30/16.
  */
 public class Common {
-
-    public static final String  GOOGLE_API_KEY = "AIzaSyCkIQIYmyEFzfklegCQNZYqgTeFepKbheY";
-    public static final String  GCM_SENDER_ID = "293896954126";
-
-    public static final String GCM_INTENT_SERVICE = "GcmIntentService";
-    public static final String GCM_SEND_ERROR = "Send error: ";
-    public static final String GCM_RECEIVED = "Received: ";
-    public static final String GCM_DELETED_MESSAGE = "Deleted messages on server: ";
-    public static final String GCM_NOTIFICATION = "GCM Notification";
-    public static final String EXTRA_MESSAGE = "message";
-    public static final String NEW_PUSH_EVENT = "new-push-event";
-
 
     public static final String TAG = "Salik";
     public static final String APP_PREFERENCE = "salikPrefernec";
@@ -29,9 +17,14 @@ public class Common {
     //Server Info
     public final static String API_KEY = "12345";
 //    public final static String SERVER_URL = "http://172.16.1.192:8080/Salik/index.php";
-    public final static String SERVER_URL = "http://138.128.178.90/~oczxbfkm/Salik/index.php";
+//    public final static String SERVER_URL = "http://138.128.178.90/~oczxbfkm/Salik/index.php";
+public final static String SERVER_URL = "http://salikappqatar.com/Salik/index.php";
+
     public final static String URL_LOGIN = SERVER_URL + "/api/login";
     public final static String URL_GET_ORDERS = SERVER_URL + "/api/getOrders";
+    public final static String URL_CHANGE_ORDER_STATE = SERVER_URL + "/api/orderStateChange";
+    public final static String URL_GET_HISTORY = SERVER_URL + "/api/getHistory";
+    public final static String URL_CLEAR_HISTORY = SERVER_URL + "/api/clearHistory";
 
     //Response
     public final static String STATUS = "status";
@@ -46,17 +39,22 @@ public class Common {
     public final static String ORDER_LOCATION_ADDRESS = "order_location_address";
     public final static String ORDER_LOCATION_LATITUDE = "order_location_latitude";
     public final static String ORDER_LOCATION_LONGITUDE = "order_location_longitude";
-    public final static String ORDER_CAR_ID = "order_car_id";
+    public final static String ORDER_CAR_TYPE = "order_car_type";
     public final static String DISTANCE = "distance";
+    public final static String ORDER_STATE = "order_state";
+    public final static String ORDER_COMPLETED_TIME = "order_completed_time";
+    public final static String ORDER_HISTORY = "order_history";
 
     //Driver Info
+    public final static String DRIVER_ID = "driver_id";
     public final static String DRIVER_NAME = "driver_name";
     public final static String DRIVER_PASSWORD = "driver_password";
     public final static String DRIVER_LOCATION_ADDRESS = "driver_location_address";
     public final static String DRIVER_LOCATION_LATITUDE = "driver_location_latitude";
     public final static String DRIVER_LOCATION_LONGITUDE = "driver_location_longitude";
     public final static String DRIVER_CAR_ID = "driver_car_id";
-    public final static String DRIVER_GCM_ID = "gcm_id";
+    public final static String DRIVER_CAR_TYPE = "driver_car_type";
 
+    public static final int		LOCATION_INTERVAL								= 10000;
 
 }

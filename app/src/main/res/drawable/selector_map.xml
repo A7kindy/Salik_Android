@@ -3,10 +3,10 @@
 
     <item
         android:state_selected="true"
-        android:drawable="@drawable/map_icon" />
+        android:drawable="@drawable/icon_map_off" />
 
     <item
         android:state_selected="false"
-        android:drawable="@drawable/map_icon_off" />
+        android:drawable="@drawable/icon_map" />
 
 </selector>

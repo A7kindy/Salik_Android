@@ -3,7 +3,7 @@ package com.me.salik.modal;
 import lombok.Data;
 
 /**
- * Created by MAC on 6/14/16.
+ * Created by MAC on 6/30/16.
  */
 @Data
 public class DriverInfo {
@@ -27,5 +27,4 @@ public class DriverInfo {
     double driver_location_latitude;
     double driver_location_longitude;
     String driver_gcm_id;
-
 }

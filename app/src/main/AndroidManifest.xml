@@ -27,17 +27,7 @@
         android:glEsVersion="0x00020000"
         android:required="true" />
 
-    <!-- Creating Permission to receive GCM -->
-    <permission
-        android:name="com.me.salik.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="com.me.salik.permission.C2D_MESSAGE" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-    <!--Call Permission -->
+    <!-- Call Permission -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -51,9 +41,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".view.activity.SplashActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,32 +49,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activity.LoginActivity"
+            android:name=".view.activity.HomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activity.LogInActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|adjustResize" />
-        <activity
-            android:name=".view.activity.MainActivity"
-            android:screenOrientation="portrait" />
+        <activity android:name=".view.activity.TakeOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".view.activity.OpenMapActivity"
+            android:screenOrientation="portrait"/>
 
-        <!-- GCM 리시버 -->
-        <receiver
-            android:name=".gcm.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+        <service android:name=".location.LocationService"
+            android:exported="true"/>
 
-                <category android:name="com.me.salik.gcm" />
-                <!-- 젤리빈 부터는 category 빼도 된다 -->
-            </intent-filter>
-        </receiver>
-
-        <service android:name=".gcm.GCMIntentService" />
-
-        <!-- GCM 리시버에서 돌리는 서비스 -->
-
-        <activity android:name=".view.activity.NotificationActivity" />
-        <activity android:name=".view.activity.CustomerInfoActivity"></activity>
     </application>
 
 </manifest>

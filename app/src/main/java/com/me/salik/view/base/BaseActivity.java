@@ -2,27 +2,23 @@ package com.me.salik.view.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
-import android.util.Base64;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.me.salik.R;
 
-import java.io.ByteArrayOutputStream;
 import java.util.UUID;
 
 /**
- * Created by MAC on 6/13/16.
+ * Created by MAC on 6/30/16.
  */
-public class BaseActivity  extends SherlockFragmentActivity {
+public class BaseActivity extends AppCompatActivity {
 
     public BaseApplication apps;
 
@@ -36,6 +32,13 @@ public class BaseActivity  extends SherlockFragmentActivity {
     public static enum CUSTOM_ANIMATIONS {
         FADE_IN, SLIDE_FROM_LEFT, SLIDE_FROM_RIGHT, SLIDE_FROM_TOP, SLIDE_FROM_BOTTOM
     }
+
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//
+//        apps = (BaseApplication)getApplicationContext();
+//    }
 
     @Override
     public View onCreateView(String name, Context c, AttributeSet attrs) {
@@ -167,6 +170,7 @@ public class BaseActivity  extends SherlockFragmentActivity {
         return context;
     }
 
+
     public void showLoadingProgressDialog(){
         this.showProgressDialog("Loading. Please wait...");
     }
@@ -175,7 +179,6 @@ public class BaseActivity  extends SherlockFragmentActivity {
         if (this.progressDialog == null){
             this.progressDialog = new ProgressDialog(this);
             this.progressDialog.setIndeterminate(true);
-            this.progressDialog.setCancelable(false);
         }
 
         this.progressDialog.setMessage(msg);
@@ -199,18 +202,4 @@ public class BaseActivity  extends SherlockFragmentActivity {
         builder.show();
     }
 
-    public String bitmapToBase64(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
-    }
-
-    public Bitmap base64ToBitmap(String b64) {
-        byte[] imageAsBytes = Base64.decode(b64.getBytes(), Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-    }
-
-
 }
-

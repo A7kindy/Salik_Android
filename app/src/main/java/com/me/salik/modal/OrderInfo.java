@@ -3,10 +3,11 @@ package com.me.salik.modal;
 import lombok.Data;
 
 /**
- * Created by MAC on 6/13/16.
+ * Created by MAC on 6/30/16.
  */
 @Data
 public class OrderInfo {
+
 
     public OrderInfo(){
 
@@ -18,7 +19,6 @@ public class OrderInfo {
     String order_location_address;
     double order_location_latitude;
     double order_location_longitude;
-    int order_car_id;
+    String order_car_type;
     double order_distance;
-
 }

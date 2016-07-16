@@ -2,7 +2,6 @@ package com.me.salik.view.base;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,12 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * Created by MAC on 6/13/16.
+ * Created by MAC on 6/30/16.
  */
 public class BaseFragment extends Fragment {
-
-    protected BaseFragment rootFragment;
-    protected BaseFragment activeFragment;
 
     private ProgressDialog progressDialog;
     private AlertDialog.Builder builder;
@@ -103,6 +99,4 @@ public class BaseFragment extends Fragment {
             this.progressDialog.dismiss();;
         }
     }
-
-
 }

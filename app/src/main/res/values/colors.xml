@@ -9,7 +9,10 @@
     <color name="separatorLineColor1">#434647</color>
     <color name="separatorLineColor2">#868c8e</color>
     <color name="colorTabIndicator">#00FF00</color>
-
-
+    <color name="takeOrderButtonColor">#0b81f1</color>
+    <color name="completeButtonColor">#18cc6b</color>
+    <color name="cancelButtonColor">#f7483c</color>
+    <color name="listSelected">#88888888</color>
+    <color name="listDeselected">#EEEEEE</color>
 
 </resources>

@@ -7,37 +7,38 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+
 import com.me.salik.R;
 import com.me.salik.modal.DataManagement;
-import com.me.salik.modal.OrderInfo;
+import com.me.salik.modal.HistoryInfo;
 
 import java.util.ArrayList;
 
 /**
- * Created by MAC on 6/15/16.
+ * Created by MAC on 7/2/16.
  */
 public class HistoryAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater layoutinflater;
-    ArrayList<OrderInfo> orderInfos;
-
+    ArrayList<HistoryInfo> historyInfos;
 
     public HistoryAdapter(Context context){
         this.context = context;
         this.layoutinflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        orderInfos = new ArrayList<>();
-        orderInfos = DataManagement.getInstance().getOrderInfos();
+        historyInfos = new ArrayList<>();
+        historyInfos = DataManagement.getInstance().getHistoryInfos();
+
     }
 
     @Override
     public int getCount() {
-        return orderInfos.size();
+        return historyInfos.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return orderInfos.get(position);
+        return historyInfos.get(position);
     }
 
     @Override
@@ -51,24 +52,20 @@ public class HistoryAdapter extends BaseAdapter {
 
         if(convertView == null){
             listViewHolder = new ViewHolder();
-            convertView = layoutinflater.inflate(R.layout.item_history_list, parent, false);
+            convertView = layoutinflater.inflate(R.layout.item_history, parent, false);
 
-            listViewHolder.customer_id = (TextView)convertView.findViewById(R.id.customer_id);
-            listViewHolder.phone_number = (TextView)convertView.findViewById(R.id.phone_number);
+            listViewHolder.order_id = (TextView)convertView.findViewById(R.id.order_id);
             convertView.setTag(listViewHolder);
         }else{
             listViewHolder = (ViewHolder)convertView.getTag();
         }
 
-        listViewHolder.customer_id.setText(String .valueOf(orderInfos.get(position).getOrder_id()));
-        listViewHolder.phone_number.setText(orderInfos.get(position).getOrder_phone_number());
+        listViewHolder.order_id.setText(String .valueOf(historyInfos.get(position).getOrder_id()));
 
         return convertView;
     }
 
     static class ViewHolder {
-
-        TextView customer_id;
-        TextView phone_number;
+        TextView order_id;
     }
 }

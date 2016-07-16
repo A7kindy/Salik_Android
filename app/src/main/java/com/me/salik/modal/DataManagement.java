@@ -9,10 +9,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by MAC on 6/15/16.
+ * Created by MAC on 6/30/16.
  */
 public class DataManagement {
-
     public static DataManagement instance;
 
     public static synchronized DataManagement getInstance(){
@@ -24,9 +23,11 @@ public class DataManagement {
     }
 
     public ArrayList<OrderInfo> orderInfos;
+    public ArrayList<HistoryInfo> historyInfos;
 
     public DataManagement(){
         orderInfos = new ArrayList<>();
+        historyInfos = new ArrayList<>();
     }
 
     public void setOrderInfos(JSONArray array){
@@ -39,7 +40,7 @@ public class DataManagement {
                 orderInfo.setOrder_id(order.getInt(Common.ORDER_ID));
                 orderInfo.setOrder_phone_number(order.getString(Common.ORDER_PHONE_NUMBER));
                 orderInfo.setOrder_comment(order.getString(Common.ORDER_COMMENT));
-                orderInfo.setOrder_car_id(order.getInt(Common.ORDER_CAR_ID));
+                orderInfo.setOrder_car_type(order.getString(Common.ORDER_CAR_TYPE));
                 orderInfo.setOrder_location_address(order.getString(Common.ORDER_LOCATION_ADDRESS));
                 orderInfo.setOrder_location_latitude(order.getDouble(Common.ORDER_LOCATION_LATITUDE));
                 orderInfo.setOrder_location_longitude(order.getDouble(Common.ORDER_LOCATION_LONGITUDE));
@@ -63,5 +64,32 @@ public class DataManagement {
         return orderInfos.size();
     }
 
+    public void setHistoryInfos(JSONArray array){
+        historyInfos = new ArrayList<>();
+        for (int i = 0 ; i < array.length() ; i++){
+            HistoryInfo historyInfo = new HistoryInfo();
+            try {
+                JSONObject history = array.getJSONObject(i);
+                historyInfo.setOrder_id(history.getInt(Common.ORDER_ID));
+                historyInfo.setOrder_phone_number(history.getString(Common.ORDER_PHONE_NUMBER));
+                historyInfo.setOrder_completed_time(history.getString(Common.ORDER_COMPLETED_TIME));
+                historyInfo.setOrder_location_address(history.getString(Common.ORDER_LOCATION_ADDRESS));
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+            historyInfos.add(historyInfo);
+        }
+    }
 
+    public ArrayList<HistoryInfo> getHistoryInfos(){
+        return historyInfos;
+    }
+
+    public int getHistoryCount(){
+        return getHistoryInfos().size();
+    }
+
+    public void removeAllHistory(){
+        historyInfos.clear();
+    }
 }

@@ -3,10 +3,10 @@
 
     <item
         android:state_selected="true"
-        android:drawable="@drawable/list_icon" />
+        android:drawable="@drawable/icon_order_list_off" />
 
     <item
         android:state_selected="false"
-        android:drawable="@drawable/list_icon_off" />
+        android:drawable="@drawable/icon_order_list" />
 
 </selector>
