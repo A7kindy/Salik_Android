@@ -66,7 +66,7 @@ public class SplashActivity extends BaseActivity {
             if (GooglePlayServicesUtil.isUserRecoverableError(status)) {
                 showErrorDialog(status);
             } else {
-                Toast.makeText(this, "Google Play Service is not supported.",
+                Toast.makeText(this, "Google Play Service is Fnot supported.",
                         Toast.LENGTH_LONG).show();
                 finish();
             }

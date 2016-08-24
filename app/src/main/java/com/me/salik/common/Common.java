@@ -42,6 +42,7 @@ public final static String SERVER_URL = "http://salikappqatar.com/Salik/index.ph
     public final static String ORDER_CAR_TYPE = "order_car_type";
     public final static String DISTANCE = "distance";
     public final static String ORDER_STATE = "order_state";
+    public final static String CURRENT_ORDER_STATE = "current_order_state";
     public final static String ORDER_COMPLETED_TIME = "order_completed_time";
     public final static String ORDER_HISTORY = "order_history";
 

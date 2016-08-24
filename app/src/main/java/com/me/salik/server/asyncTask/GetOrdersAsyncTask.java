@@ -19,6 +19,7 @@ import java.net.URL;
  */
 public class GetOrdersAsyncTask extends AsyncTask<Void, Void, JSONObject> {
     BaseActivity activity;
+    BaseFragment fragment = null;
     JSONObject params;
 
     public GetOrdersAsyncTask(BaseActivity activity, JSONObject params){
@@ -26,10 +27,20 @@ public class GetOrdersAsyncTask extends AsyncTask<Void, Void, JSONObject> {
         this.params = params;
     }
 
+    public GetOrdersAsyncTask(BaseActivity activity,BaseFragment fragment, JSONObject params){
+        this.activity = activity;
+        this.fragment = fragment;
+        this.params = params;
+    }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        activity.showLoadingProgressDialog();
+        if (fragment == null) {
+            activity.showLoadingProgressDialog();
+        } else {
+            fragment.showLoadingProgressDialog();
+        }
     }
 
     @Override
@@ -48,14 +59,22 @@ public class GetOrdersAsyncTask extends AsyncTask<Void, Void, JSONObject> {
     @Override
     protected void onPostExecute(JSONObject object) {
         super.onPostExecute(object);
-        activity.dismissProgress();
+        if (fragment == null) {
+            activity.dismissProgress();
+        } else {
+            fragment.dismissProgress();
+        }
         if (object != null){
-            if (activity instanceof HomeActivity){
+            if (activity instanceof HomeActivity && fragment == null){
                 ((HomeActivity)activity).getOrdersSuccess(object);
+            } else if (activity instanceof HomeActivity && fragment instanceof OrdersFragment){
+                ((OrdersFragment) fragment).getOrdersSuccess(object);
             }
         } else {
-            if (activity instanceof HomeActivity){
+            if (activity instanceof HomeActivity && fragment == null){
                 ((HomeActivity)activity).getOrdersFail();
+            } else if (activity instanceof HomeActivity && fragment instanceof OrdersFragment){
+                ((OrdersFragment) fragment).getOrdersFail();
             }
         }
 

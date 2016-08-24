@@ -17,6 +17,18 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/refresh_button"
+        android:text="@string/refresh"
+        android:textColor="@android:color/white"
+        android:id="@+id/refresh"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/take_order_button"
         android:text="@string/take_order"
         android:textColor="@android:color/white"

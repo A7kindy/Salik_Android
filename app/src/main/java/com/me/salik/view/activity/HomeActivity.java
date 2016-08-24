@@ -1,12 +1,10 @@
 package com.me.salik.view.activity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+
 
 import com.me.salik.R;
 import com.me.salik.common.Common;
@@ -16,7 +14,6 @@ import com.me.salik.server.asyncTask.GetHistoryAsyncTask;
 import com.me.salik.server.asyncTask.GetOrdersAsyncTask;
 import com.me.salik.view.adapter.HomePagerViewAdpater;
 import com.me.salik.view.base.BaseActivity;
-import com.me.salik.view.fragment.OrdersFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,14 +33,15 @@ public class HomeActivity extends BaseActivity {
     public int index = -1;
     public int orderState = 2;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        setParams();
-        new GetOrdersAsyncTask(this, getParams()).execute();
+
         setupTab();
         initUI(0);
+
     }
 
     private void initUI(int position){
@@ -53,7 +51,6 @@ public class HomeActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(position);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
     }
 
     private void setupTab(){
@@ -73,10 +70,12 @@ public class HomeActivity extends BaseActivity {
                 if (tab.getPosition() == 0){
                     setParams();
                     new GetOrdersAsyncTask(HomeActivity.this, getParams()).execute();
-                }
-                if (tab.getPosition() == 2){
+                } else if (tab.getPosition() == 1){
+
+                } else if (tab.getPosition() == 2){
                     setHistoryParams();
                     new GetHistoryAsyncTask(HomeActivity.this, getHistoryParams()).execute();
+
                 }
                 index = -1;
                 if (!historyStack.isEmpty()){
@@ -93,9 +92,6 @@ public class HomeActivity extends BaseActivity {
             public void onTabReselected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 2 && !historyStack.isEmpty()){
                     historyStack.pop().onBack();
-                } else if (tab.getPosition() == 0){
-                    setParams();
-                    new GetOrdersAsyncTask(HomeActivity.this, getParams()).execute();
                 }
             }
         });
@@ -153,15 +149,17 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void getOrdersFail(){
-        showMsg(getString(R.string.connection_error));
+//        showMsg(getString(R.string.connection_error));
         initUI(0);
     }
 
     private void fetchOrderInfos(JSONObject object){
         JSONArray array = null;
         try {
-            array = object.getJSONArray(Common.ORDERS);
-            DataManagement.getInstance().setOrderInfos(array);
+            if (!object.isNull(Common.ORDERS)) {
+                array = object.getJSONArray(Common.ORDERS);
+                DataManagement.getInstance().setOrderInfos(array);
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -184,15 +182,20 @@ public class HomeActivity extends BaseActivity {
     public void orderStateChangeSuccess(JSONObject object) {
         try {
             SalikLog.Error("OrderState---->"+String.valueOf(object.getInt(Common.STATUS)));
-            goTakeOrderActivity(index);
-            index = -1;
+            if (object.getInt(Common.CURRENT_ORDER_STATE) != 1){
+                showMsg("Order is taken error!");
+            } else{
+                goTakeOrderActivity(index);
+                index = -1;
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     public void orderStateChangeFail(){
-        showMsg(getString(R.string.connection_error));
+//        showMsg(getString(R.string.connection_error));
     }
 
     public void getHistorySuccess(JSONObject object){
@@ -201,18 +204,17 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void getHistoryFail(){
-        showMsg(getString(R.string.connection_error));
+//        showMsg(getString(R.string.connection_error));
 
     }
 
     public void fetchHistoryInfo(JSONObject object){
         JSONArray array = null;
+        DataManagement.getInstance().removeAllHistory();
         try {
             if (object.getInt(Common.STATUS)==1) {
                 array = object.getJSONArray(Common.ORDER_HISTORY);
                 DataManagement.getInstance().setHistoryInfos(array);
-            } else{
-
             }
 
         } catch (JSONException e) {
@@ -236,4 +238,10 @@ public class HomeActivity extends BaseActivity {
             historyStack.pop().onBack();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
 }

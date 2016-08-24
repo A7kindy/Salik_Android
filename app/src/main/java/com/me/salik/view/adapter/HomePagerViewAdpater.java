@@ -2,17 +2,16 @@ package com.me.salik.view.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.me.salik.view.fragment.OrderHistoryContainerFragment;
 import com.me.salik.view.fragment.OrdersFragment;
-import com.me.salik.view.fragment.OrdersHistoryFragment;
 import com.me.salik.view.fragment.OrdersMapFragment;
 
 /**
  * Created by MAC on 6/30/16.
  */
-public class HomePagerViewAdpater extends FragmentStatePagerAdapter {
+public class HomePagerViewAdpater extends FragmentPagerAdapter {
     int mNumOfTabs;
 
     public HomePagerViewAdpater(FragmentManager fm, int numOfTabs) {

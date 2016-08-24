@@ -7,6 +7,7 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCkIQIYmyEFzfklegCQNZYqgTeFepKbheY</string>
     <string name="connection_error">Check Your Internet Connection!</string>
     <string name="take_order">Take Order</string>
+    <string name="refresh">Refresh</string>
     <string name="logout">Logout</string>
     <string name="customer_number">Customer Number : </string>
     <string name="location">Location :</string>

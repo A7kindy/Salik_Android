@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.me.salik.R;
-import com.me.salik.modal.DataManagement;
 import com.me.salik.modal.OrderInfo;
 
 import java.util.ArrayList;
@@ -21,11 +20,11 @@ public class OrderListAdapter extends BaseAdapter {
     private LayoutInflater layoutinflater;
     ArrayList<OrderInfo> orderInfos;
 
-    public OrderListAdapter(Context context){
+    public OrderListAdapter(Context context, ArrayList<OrderInfo> orderInfos){
         this.context = context;
         this.layoutinflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        orderInfos = new ArrayList<>();
-        orderInfos = DataManagement.getInstance().getOrderInfos();
+        this.orderInfos = orderInfos;
+
     }
 
     @Override

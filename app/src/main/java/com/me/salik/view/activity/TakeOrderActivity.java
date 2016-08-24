@@ -31,6 +31,7 @@ public class TakeOrderActivity extends BaseActivity implements View.OnClickListe
 
     int index = 0;
     int orderState = 1;
+    int order_id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class TakeOrderActivity extends BaseActivity implements View.OnClickListe
         Bundle bundle = getIntent().getExtras();
         if (bundle != null){
             index = bundle.getInt("index", 0);
+            order_id = DataManagement.getInstance().getOrderInfo(index).getOrder_id();
         }
         initUI();
     }
@@ -63,7 +65,7 @@ public class TakeOrderActivity extends BaseActivity implements View.OnClickListe
     private void setParams(int state){
         try {
             params.put(Common.DRIVER_ID, apps.preference.getDriverId());
-            params.put(Common.ORDER_ID, DataManagement.getInstance().getOrderInfo(index).getOrder_id());
+            params.put(Common.ORDER_ID, order_id);
             params.put(Common.ORDER_STATE, state);
         } catch (JSONException e) {
             e.printStackTrace();

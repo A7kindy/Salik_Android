@@ -176,6 +176,8 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener{
     private void goHome(){
         Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
         startActivity(intent);
+//        stopService(locationServiceIntent);
+//        mAppLocation.stopServices();
         finish();
 
     }

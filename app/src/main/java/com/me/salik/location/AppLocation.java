@@ -211,9 +211,7 @@ public class AppLocation implements LocationListener, GoogleApiClient.Connection
      */
     @Override
     public void onLocationChanged(Location location) {
-        // final Intent intent = new Intent();
-        // intent.setAction("updatelocation");
-        // LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+
         SalikLog.Error("On Location Changed called");
         SalikLog.Error(String.valueOf(appPrefs.getLatitude())+":::"+String.valueOf(appPrefs.getLongitude()));
 

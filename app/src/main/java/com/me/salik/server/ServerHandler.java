@@ -42,6 +42,7 @@ public class ServerHandler {
     public JSONObject HttpPost(URL url, JSONObject params){
 
         SalikLog.Info(url.toString());
+        SalikLog.Info(params.toString());
 
         try {
             connection = (HttpURLConnection)url.openConnection();
