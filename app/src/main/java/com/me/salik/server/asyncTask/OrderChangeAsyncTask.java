@@ -5,10 +5,8 @@ import android.os.AsyncTask;
 import com.me.salik.common.Common;
 import com.me.salik.server.ServerHandler;
 import com.me.salik.view.activity.HomeActivity;
-import com.me.salik.view.activity.LogInActivity;
 import com.me.salik.view.activity.TakeOrderActivity;
 import com.me.salik.view.base.BaseActivity;
-import com.me.salik.view.base.BaseFragment;
 
 import org.json.JSONObject;
 

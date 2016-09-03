@@ -18,7 +18,7 @@ import com.me.salik.modal.DataManagement;
 import com.me.salik.server.asyncTask.GetOrdersAsyncTask;
 import com.me.salik.server.asyncTask.OrderChangeAsyncTask;
 import com.me.salik.view.activity.HomeActivity;
-import com.me.salik.view.activity.LogInActivity;
+import com.me.salik.view.activity.LoginActivity;
 import com.me.salik.view.adapter.OrderListAdapter;
 import com.me.salik.view.base.BaseFragment;
 
@@ -81,7 +81,7 @@ public class OrdersFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.logout:
-                Intent intent = new Intent(homeActivity, LogInActivity.class);
+                Intent intent = new Intent(homeActivity, LoginActivity.class);
                 startActivity(intent);
                 homeActivity.finish();
                 break;

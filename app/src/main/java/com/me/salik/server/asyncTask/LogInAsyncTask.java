@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 
 import com.me.salik.common.Common;
 import com.me.salik.server.ServerHandler;
-import com.me.salik.view.activity.LogInActivity;
+import com.me.salik.view.activity.LoginActivity;
 import com.me.salik.view.base.BaseActivity;
 
 import org.json.JSONObject;
@@ -49,9 +49,9 @@ public class LogInAsyncTask extends AsyncTask<Void, Void, JSONObject> {
         super.onPostExecute(jsonObject);
         activity.dismissProgress();
         if (jsonObject != null){
-            ((LogInActivity)activity).loginSuccess(jsonObject);
+            ((LoginActivity)activity).loginSuccess(jsonObject);
         } else {
-            ((LogInActivity)activity).loginFail();
+            ((LoginActivity)activity).loginFail();
         }
     }
 }
