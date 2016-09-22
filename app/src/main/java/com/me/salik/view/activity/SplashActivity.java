@@ -51,7 +51,7 @@ public class SplashActivity extends BaseActivity {
                 public void run() {
 
                     Intent intent;//
-                    intent = new Intent(SplashActivity.this, LogInActivity.class);
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
 
                     finish();

@@ -4,23 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.me.salik.R;
 import com.me.salik.common.Common;
 import com.me.salik.common.SalikLog;
 import com.me.salik.common.Utils;
 import com.me.salik.location.AppLocation;
-import com.me.salik.location.GPSTracker;
-import com.me.salik.location.LocationAddress;
 import com.me.salik.location.LocationService;
 import com.me.salik.modal.DriverInfo;
 import com.me.salik.server.asyncTask.LogInAsyncTask;
@@ -29,7 +24,7 @@ import com.me.salik.view.base.BaseActivity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LogInActivity extends BaseActivity implements View.OnClickListener{
+public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
     Button login;
     EditText user_name;
@@ -174,7 +169,7 @@ public class LogInActivity extends BaseActivity implements View.OnClickListener{
     }
 
     private void goHome(){
-        Intent intent = new Intent(LogInActivity.this, HomeActivity.class);
+        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
         startActivity(intent);
 //        stopService(locationServiceIntent);
 //        mAppLocation.stopServices();
