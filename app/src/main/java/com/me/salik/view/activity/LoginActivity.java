@@ -1,9 +1,13 @@
 package com.me.salik.view.activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -35,6 +39,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     private AppLocation mAppLocation;
 
     Intent  locationServiceIntent;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
+    private LocationManager mLocationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,16 +90,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     protected void onStart() {
         super.onStart();
 
-        final LocationManager mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            new AppLocation(this).showSettingsAlert();
-        } else {
-            Log.e("onResume", "on Resume MAIN is Fine");
-            locationServiceIntent = new Intent(this, LocationService.class);
-            mAppLocation = AppLocation.getInstance(this, this, locationServiceIntent);
-            mAppLocation.startServices(this, this);
-        }
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        //check for permission
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            //request permission
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
     }
 
     @Override
@@ -175,5 +182,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 //        mAppLocation.stopServices();
         finish();
 
+    }
+
+    //Permission RequestCallback
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted,
+                    if (!mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                        new AppLocation(this).showSettingsAlert();
+                    } else {
+                        locationServiceIntent = new Intent(this, LocationService.class);
+                        mAppLocation = AppLocation.getInstance(this, this, locationServiceIntent);
+                        mAppLocation.startServices(this, this);
+                    }
+
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }
