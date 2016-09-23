@@ -1,8 +1,12 @@
 package com.me.salik.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 
 
@@ -23,6 +27,7 @@ import java.util.Stack;
 
 public class HomeActivity extends BaseActivity {
 
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 0;
     TabLayout tabLayout;
     ViewPager viewPager;
     HomePagerViewAdpater adapter;
@@ -40,7 +45,21 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
 
         setupTab();
-        initUI(0);
+
+        //check permissions
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // No explanation needed, we can request the permission.
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+        else{
+            initUI(0);
+        }
+
 
     }
 
@@ -242,6 +261,28 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    //Runtime Permission Callback
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay!
+                    initUI(0);
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+            //other case
+        }
     }
 
 }
