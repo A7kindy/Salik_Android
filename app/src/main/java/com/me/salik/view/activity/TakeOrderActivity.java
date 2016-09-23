@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 public class TakeOrderActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final int PERMISSIONS_REQUEST_CALL_PHONE = 0;
     TextView number;
     TextView location;
     TextView comment;
@@ -121,18 +122,15 @@ public class TakeOrderActivity extends BaseActivity implements View.OnClickListe
     }
 
     public void showCallActivity(){
-        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + DataManagement.getInstance().getOrderInfo(index).getOrder_phone_number()));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    PERMISSIONS_REQUEST_CALL_PHONE);
         }
-        startActivity(intent);
+        else{
+            Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + DataManagement.getInstance().getOrderInfo(index).getOrder_phone_number()));
+            startActivity(intent);
+        }
     }
 
     public void showMapActivity(){
@@ -162,5 +160,29 @@ public class TakeOrderActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_CALL_PHONE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    //if permission is granted
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }
