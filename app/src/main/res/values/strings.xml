@@ -4,7 +4,7 @@
     <string name="password">password</string>
     <string name="log_in">Log In</string>
 
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCkIQIYmyEFzfklegCQNZYqgTeFepKbheY</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDGukmcDUTP5xurRfKbpkEkC6u_WppiMco</string>
     <string name="connection_error">Check Your Internet Connection!</string>
     <string name="take_order">Take Order</string>
     <string name="refresh">Refresh</string>
