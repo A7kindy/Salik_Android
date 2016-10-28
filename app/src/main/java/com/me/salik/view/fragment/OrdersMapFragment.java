@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.me.salik.R;
+import com.me.salik.location.GPSTracker;
 import com.me.salik.modal.DataManagement;
 import com.me.salik.server.asyncTask.OrderChangeAsyncTask;
 import com.me.salik.view.activity.HomeActivity;
@@ -30,7 +31,7 @@ import java.util.HashMap;
 /**
  * Created by MAC on 6/30/16.
  */
-public class OrdersMapFragment extends BaseFragment implements OnMapReadyCallback, LocationListener, View.OnClickListener, GoogleMap.OnMarkerClickListener{
+public class OrdersMapFragment extends BaseFragment implements OnMapReadyCallback, View.OnClickListener, GoogleMap.OnMarkerClickListener{
 
     View rootView;
     HomeActivity homeActivity;
@@ -39,6 +40,8 @@ public class OrdersMapFragment extends BaseFragment implements OnMapReadyCallbac
     private MapView mapView;
     Marker currLocationMarker;
     LatLng latLng;
+
+    private GPSTracker mGpsTracker;
 
     public HashMap<Marker, Integer> mHashMap = new HashMap<Marker, Integer>();
     Marker marker;
@@ -72,10 +75,10 @@ public class OrdersMapFragment extends BaseFragment implements OnMapReadyCallbac
         mMap.setOnMarkerClickListener(this);
 
         mMap.setMyLocationEnabled(true);
-        latLng = new LatLng(apps.preference.getLatitude(), apps.preference.getLongitude());
+        mGpsTracker = new GPSTracker(getContext(),mMap);
+        latLng = new LatLng(mGpsTracker.getLatitude(), mGpsTracker.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        addMyMaker(latLng);
         setOrderMaker();
 
     }
@@ -106,12 +109,6 @@ public class OrdersMapFragment extends BaseFragment implements OnMapReadyCallbac
             marker = mMap.addMarker(markerOptions);
             mHashMap.put(marker, i);
         }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        latLng = new LatLng(location.getLatitude(), location.getLongitude());
-        addMyMaker(latLng);
     }
 
     @Override
