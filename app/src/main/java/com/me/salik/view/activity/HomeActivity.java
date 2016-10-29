@@ -60,6 +60,14 @@ public class HomeActivity extends BaseActivity {
             initUI(0);
         }
 
+        //check for incompleteOrder
+        int currentOrderId = apps.preference.getCurrentOrderId();
+        if(currentOrderId != -99){
+            Intent intent = new Intent(this,TakeOrderActivity.class);
+            intent.putExtra(Common.CURRENT_ORDER_ID,currentOrderId);
+            intent.putExtra("index", index);
+            startActivity(intent);
+        }
 
     }
 

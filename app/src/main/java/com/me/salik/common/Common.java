@@ -34,6 +34,7 @@ public final static String SERVER_URL = "http://salikappqatar.com/Salik/index.ph
 
     public final static String ORDERS = "orders";
     public final static String ORDER_ID = "order_id";
+    public final static String CURRENT_ORDER_ID = "current_order_id";
     public final static String ORDER_PHONE_NUMBER = "order_phone_number";
     public final static String ORDER_COMMENT = "order_comment";
     public final static String ORDER_LOCATION_ADDRESS = "order_location_address";

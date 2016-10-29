@@ -40,7 +40,16 @@ public class TakeOrderActivity extends BaseActivity implements View.OnClickListe
         setContentView(R.layout.activity_take_order);
 
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null){
+
+        //checkOrderRecovery
+        Intent intent = getIntent();
+        int recoveryOrderId = intent.getIntExtra(Common.CURRENT_ORDER_ID,-99);
+        if(recoveryOrderId !=-99){
+            index = bundle.getInt("index", 0);
+            order_id = recoveryOrderId;
+        }
+
+        else if (bundle != null){
             index = bundle.getInt("index", 0);
             order_id = DataManagement.getInstance().getOrderInfo(index).getOrder_id();
         }
@@ -86,11 +95,13 @@ public class TakeOrderActivity extends BaseActivity implements View.OnClickListe
                 orderState = 3;
                 setParams(orderState);
                 showConfirmMessage(getString(R.string.order_complete), getString(R.string.are_you_sure));
+                apps.preference.setCurrentOrderId(-99);
                 break;
             case R.id.cancel:
                 orderState = 1;
                 setParams(orderState);
                 showConfirmMessage(getString(R.string.order_cancel), getString(R.string.are_you_sure));
+                apps.preference.setCurrentOrderId(-99);
                 break;
             default:
                 break;

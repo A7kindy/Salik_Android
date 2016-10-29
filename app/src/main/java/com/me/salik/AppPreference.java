@@ -107,4 +107,13 @@ public class AppPreference {
         return sharedPreferences.getString(Common.DRIVER_CAR_TYPE, "");
     }
 
+    public int getCurrentOrderId(){
+        return sharedPreferences.getInt(Common.CURRENT_ORDER_ID, -99);
+    }
+
+    public void setCurrentOrderId(int orderId){
+        editor.putInt(Common.CURRENT_ORDER_ID,orderId);
+        editor.commit();
+    }
+
 }

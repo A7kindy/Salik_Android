@@ -51,6 +51,13 @@ public class OrderChangeAsyncTask extends AsyncTask<Void, Void, JSONObject> {
         super.onPostExecute(jsonObject);
         activity.dismissProgress();
         if (jsonObject != null){
+            //Store current Order in Preferences
+            try {
+                activity.apps.preference.setCurrentOrderId(params.getInt(Common.ORDER_ID));
+            }catch(Exception e){
+
+            }
+
             if (activity instanceof TakeOrderActivity) {
                 ((TakeOrderActivity) activity).orderStateChangeSuccess(jsonObject);
             } else if (activity instanceof HomeActivity){
