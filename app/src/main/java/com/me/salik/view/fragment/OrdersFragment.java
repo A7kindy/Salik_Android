@@ -81,6 +81,8 @@ public class OrdersFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.logout:
+                apps.preference.setDriverName(null);
+                apps.preference.setDriverPassword(null);
                 Intent intent = new Intent(homeActivity, LoginActivity.class);
                 startActivity(intent);
                 homeActivity.finish();

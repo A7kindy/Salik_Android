@@ -106,6 +106,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
+        String username = apps.preference.getDriverName();
+        String password = apps.preference.getDriverPassword();
+        Intent intent = getIntent();
+        String previousActivity = intent.getStringExtra("activity");
+
+        if(previousActivity!=null) {
+            if(username != "" && password != "") {
+                if (username != null && password != null && previousActivity.equals("splash")) {
+                    setParams();
+                    new LogInAsyncTask(LoginActivity.this, params).execute();
+                }
+            }
+        }
     }
 
     @Override
