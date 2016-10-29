@@ -111,11 +111,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
         Intent intent = getIntent();
         String previousActivity = intent.getStringExtra("activity");
 
-        if(previousActivity!=null) {
-            if(username != "" && password != "") {
-                if (username != null && password != null && previousActivity.equals("splash")) {
-                    setParams();
-                    new LogInAsyncTask(LoginActivity.this, params).execute();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            Log.i("autologinCheck","granted");
+            if (previousActivity != null) {
+                if (username != "" && password != "") {
+                    if (username != null && password != null && previousActivity.equals("splash")) {
+                        setParams();
+                        new LogInAsyncTask(LoginActivity.this, params).execute();
+                    }
                 }
             }
         }
