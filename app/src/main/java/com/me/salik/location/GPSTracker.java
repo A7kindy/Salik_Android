@@ -49,6 +49,11 @@ public class GPSTracker extends Service implements LocationListener {
     // Declaring a Location Manager
     protected LocationManager locationManager;
 
+    public GPSTracker(Context context){
+        this.mContext = context;
+        getLocation();
+    }
+
     public GPSTracker(Context context, GoogleMap mMap) {
         this.mContext = context;
         this.mMap = mMap;
@@ -195,7 +200,9 @@ public class GPSTracker extends Service implements LocationListener {
         Log.i("GpsTracker","locationChanged");
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
         CameraPosition cameraPosition = new CameraPosition.Builder().target(latLng).zoom(15).build();
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        if(mMap != null) {
+            mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+        }
     }
 
     @Override

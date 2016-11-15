@@ -1,6 +1,7 @@
 package com.me.salik.view.fragment;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,7 +15,9 @@ import com.me.salik.R;
 
 import com.me.salik.common.Common;
 import com.me.salik.common.SalikLog;
+import com.me.salik.location.GPSTracker;
 import com.me.salik.modal.DataManagement;
+import com.me.salik.modal.OrderInfo;
 import com.me.salik.server.asyncTask.GetOrdersAsyncTask;
 import com.me.salik.server.asyncTask.OrderChangeAsyncTask;
 import com.me.salik.view.activity.HomeActivity;
@@ -26,6 +29,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -57,8 +61,7 @@ public class OrdersFragment extends BaseFragment implements View.OnClickListener
 
     private void initUI(){
         listView = (ListView)rootView.findViewById(R.id.list_view);
-        adapter = new OrderListAdapter(homeActivity, DataManagement.getInstance().getOrderInfos());
-        listView.setAdapter(adapter);
+        refresh();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -156,8 +159,42 @@ public class OrdersFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void refresh(){
+        //fix distances
+        ArrayList<OrderInfo> orderInfos = DataManagement.getInstance().getOrderInfos();
+        GPSTracker gpsTracker = new GPSTracker(getContext());
+        Location currentLocation = gpsTracker.getLocation();
+        for(OrderInfo o: orderInfos){
+            double orderLatitude = o.getOrder_location_latitude();
+            double orderLongitude = o.getOrder_location_longitude();
+            double driverLatitude = currentLocation.getLatitude();
+            double driverLongitude = currentLocation.getLongitude();
+            double distance = distance(orderLatitude,orderLongitude,driverLatitude, driverLongitude);
+            o.setOrder_distance(distance);
+        }
+
         adapter = new OrderListAdapter(homeActivity, DataManagement.getInstance().getOrderInfos());
         listView.setAdapter(adapter);
     }
 
+    private double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad * 180.0 / Math.PI);
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        final double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515 *1.609344;
+        /*if (unit == 'd') {
+            dist = dist * 1609.344;
+        } else if (unit == 'N') {
+            dist = dist * 0.8684;
+        }*/
+        return (dist);
+    }
 }
